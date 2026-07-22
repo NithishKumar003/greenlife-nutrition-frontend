@@ -36,7 +36,7 @@ export default function LoginPage({ onNavigate, onLoginSuccess }) {
   };
 
   return (
-    <section className="p-6 m-6 md:m-12 mt-12 bg-blue-100 rounded-xl flex justify-center items-center min-h-[70vh]">
+    <section className="p-6 m-6 md:m-12 mt-12 text-green-900 bg-blue-100 rounded-xl flex justify-center items-center min-h-[70vh]">
       <div className="flex flex-col gap-8 justify-center items-center w-full max-w-md">
         
         {/* Header Icon */}
@@ -49,7 +49,7 @@ export default function LoginPage({ onNavigate, onLoginSuccess }) {
 
         {/* Heading */}
         <div className="flex flex-col justify-center items-center text-center">
-          <h1 className="font-bold text-2xl lg:text-4xl text-gray-800">
+          <h1 className="font-bold text-2xl lg:text-4xl">
             Sign in with your account
           </h1>
           <p className="lg:text-base text-sm text-gray-600 mt-2">

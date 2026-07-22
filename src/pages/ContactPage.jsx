@@ -41,7 +41,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="bg-[#EFFEFF] p-5">
+    <section className="bg-[#EFFEFF] text-green-900 p-5">
       {/* Contact Section Wrapper */}
       <div className="flex flex-col bg-[url('/images/front-bg.png')] mt-14 bg-cover bg-center rounded-2xl lg:flex-row md:justify-center md:gap-10 justify-center items-center p-5 gap-5 mb-8">
         {/* Title */}
@@ -95,7 +95,7 @@ export default function Contact() {
 
         {/* Contact Form */}
         <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl border-2 border-[#2294B1] shadow-xl w-full max-w-lg">
-          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 text-center lg:text-left">
+          <h2 className="text-2xl lg:text-3xl font-bold  text-center lg:text-left">
             Please enter your information
           </h2>
           <p className="text-xs text-gray-500 my-2 text-center lg:text-left">
@@ -208,14 +208,14 @@ export default function Contact() {
       </div>
 
       {/* Direct Contact Cards */}
-      <div id="details" className="flex flex-col lg:flex-row justify-center items-center gap-4">
+      <div id="details" className="flex flex-col text-green-900 lg:flex-row justify-center items-center gap-4">
         {/* Email Support Card */}
         <div className="flex items-center flex-col gap-1 lg:w-1/3 bg-white/70 p-5 w-full rounded-2xl shadow-sm text-center">
           <svg className="h-6 w-6 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <polyline points="4 8.2 12 14.1 20 8.2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             <rect height="14" rx="2" ry="2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" x="3" y="6.5" />
           </svg>
-          <h3 className="font-bold text-xl text-gray-800">Email Support</h3>
+          <h3 className="font-bold text-xl ">Email Support</h3>
           <p className="text-sm text-gray-600">Our team can respond in real time</p>
           <a className="text-sm text-blue-500 hover:text-blue-700 font-medium" href="mailto:greenlife@gmail.com">
             greenlife@gmail.com
@@ -228,7 +228,7 @@ export default function Contact() {
             <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 21s-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-8 12-8 12z" />
             <circle cx="12" cy="9" r="3" strokeWidth="2" />
           </svg>
-          <h3 className="font-bold text-xl text-gray-800">Visit Our Office</h3>
+          <h3 className="font-bold text-xl">Visit Our Office</h3>
           <p className="text-sm text-gray-600">Visit Our Location from 9:00 AM to 1:00 PM</p>
           <a className="text-sm text-blue-500 hover:text-blue-700 font-medium cursor-pointer">
             View Location
@@ -240,7 +240,7 @@ export default function Contact() {
           <svg className="h-6 w-6 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
           </svg>
-          <h3 className="font-bold text-xl text-gray-800">Call Us Directly</h3>
+          <h3 className="font-bold text-xl">Call Us Directly</h3>
           <p className="text-sm text-gray-600">You can reach us anytime during working hours</p>
           <a className="text-sm text-blue-500 hover:text-blue-700 font-medium" href="tel:+919876543210">
             +91 98765 43210

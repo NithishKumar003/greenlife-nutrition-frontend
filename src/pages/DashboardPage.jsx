@@ -71,7 +71,7 @@ export default function DashboardPage({ currentUser, onNavigate, onLogout }) {
     <div className="fixed inset-0 w-screen h-screen bg-blue-100 flex flex-col overflow-hidden font-sans z-50">
       
       {/* 1. DASHBOARD HEADER BAR */}
-      <header className="h-16 w-full bg-blue-600 text-white flex items-center justify-between px-4 lg:px-8 z-50 shrink-0 shadow-md">
+      <header className="h-16 w-full bg-blue-400 text-white flex items-center justify-between px-4 lg:px-8 z-50 shrink-0 shadow-md">
         <div className="flex items-center gap-3">
           {/* Mobile Sidebar Toggle Button */}
           <button 
@@ -87,9 +87,9 @@ export default function DashboardPage({ currentUser, onNavigate, onLogout }) {
             href="/" 
             className="flex items-center gap-2 text-white font-bold text-xl tracking-wide hover:opacity-90 transition group"
           >
-            <div className="bg-white text-blue-600 p-1.5 rounded-lg shadow-sm group-hover:scale-105 transition-transform">
+            {/* <div className="bg-white text-blue-600 p-1.5 rounded-lg shadow-sm group-hover:scale-105 transition-transform">
               <Leaf className="w-5 h-5 text-green-600 fill-green-600" />
-            </div>
+            </div> */}
             <span>GreenLife Nutrition</span>
           </a>
         </div>

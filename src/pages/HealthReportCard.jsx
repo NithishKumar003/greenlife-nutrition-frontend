@@ -30,9 +30,9 @@ export default function HealthReportCard({ user, share, onNavigate, onDownloadPd
       <div className="w-full max-w-md bg-white border border-blue-200 rounded-3xl shadow-xl overflow-hidden">
         {/* BRANDING HEADER */}
         <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white text-center flex flex-col items-center gap-2">
-          <div className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30 shadow-inner">
+          {/* <div className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30 shadow-inner">
             <Leaf className="w-8 h-8 text-white fill-white" />
-          </div>
+          </div> */}
           <h2 className="font-bold text-2xl tracking-wide">GreenLife Health Report</h2>
           <p className="text-xs text-green-100 font-medium uppercase tracking-wider">
             Body Composition Summary

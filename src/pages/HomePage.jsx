@@ -29,6 +29,44 @@ export default function Home({ isAuthenticated = false }) {
     },
   ];
 
+  const servicesList = [
+    {
+      id: 1,
+      title: "Personalized Diet Plans",
+      description:
+        "We create fully customized diet plans designed around your body type, daily routine, food preferences, and health goals, ensuring sustainable nutrition that is easy to follow and effective long term.",
+      image: "/images/bslogo.png",
+    },
+    {
+      id: 2,
+      title: "Weight Management Programs",
+      description:
+        "Our weight management programs focus on healthy weight loss or gain through balanced nutrition, portion control, and habit-building strategies that support lasting results without extreme dieting or starvation.",
+      image: "/images/vision.png",
+    },
+    {
+      id: 3,
+      title: "Nutrition Counseling",
+      description:
+        "We provide expert nutritional counseling for medical conditions such as diabetes, thyroid disorders, PCOS, cholesterol, and digestive issues, using evidence-based dietary approaches to improve health and overall quality of life.",
+      image: "/images/Nutrifood.png",
+    },
+    {
+      id: 4,
+      title: "Lifestyle & Wellness Coaching",
+      description:
+        "Our lifestyle and wellness coaching helps you build healthier daily habits, including mindful eating, proper hydration, quality sleep, and stress management, creating a balanced lifestyle that supports both physical and mental wellbeing.",
+      image: "/images/couns.png",
+    },
+    {
+      id: 5,
+      title: "Nutrition Education & Meal Planning Guidance",
+      description:
+        "We educate clients on food choices, portion sizes, label reading, and meal planning techniques, empowering them with practical nutrition knowledge to make confident, healthier decisions in everyday life.",
+      image: "/images/diet-planner.png",
+    },
+  ];
+
   // Auto-play slider every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
@@ -59,7 +97,7 @@ export default function Home({ isAuthenticated = false }) {
               className="flex flex-col flex-shrink-0 justify-center items-center bg-cover bg-center h-full w-full rounded-2xl border-2 shadow-xl text-center px-4"
               style={{ backgroundImage: `url(${slide.bgImage})` }}
             >
-              <h1 className="text-white font-bold text-4xl lg:text-7xl pb-2 drop-shadow-md">
+              <h1 className="bg-gradient-to-br from-[#0F4CFF] via-[#3B82F6] to-[#60A5FA] bg-clip-text text-transparent font-bold text-3xl lg:text-7xl pb-2 drop-shadow-md">
                 {slide.title}
               </h1>
               {slide.subtitle && (
@@ -105,11 +143,11 @@ export default function Home({ isAuthenticated = false }) {
       </div>
 
       {/* Quick Navigation Cards */}
-      <div className="w-full bg-gray-200 mt-5 rounded-2xl">
+      <div className="w-full bg-blue-100 mt-5 rounded-2xl">
         <div className="py-10 px-5">
-          <h1 className="font-bold text-2xl lg:text-4xl text-center lg:text-left">
+          <h1 className="font-bold text-2xl text-green-900 lg:text-4xl text-center lg:text-left">
             Interest in Weight <span className="text-red-500">Loss</span> - We are{" "}
-            <span className="text-blue-500">Boss</span> !
+            <span className="text-blue-500"> The Boss</span> !
           </h1>
 
           <div className="pt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
@@ -170,7 +208,7 @@ export default function Home({ isAuthenticated = false }) {
       {/* Main Info Section */}
       <div className="mt-8">
         <div className="w-full flex justify-center mb-6">
-          <h1 className="font-bold text-3xl lg:text-4xl">
+          <h1 className="font-bold text-3xl text-green-900 lg:text-4xl">
             <span className="text-5xl text-red-400">G</span>reenlife{" "}
             <span className="text-5xl text-blue-400">N</span>utrition's...
           </h1>
@@ -179,62 +217,79 @@ export default function Home({ isAuthenticated = false }) {
         <div className="flex flex-col gap-6">
           {/* Offer Block */}
           <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-            <div className="bg-white rounded-2xl w-full lg:w-2/5 p-4 flex items-center justify-center">
+            <div className="bg-blue-100 rounded-2xl w-full lg:w-2/5 p-4 flex items-center justify-center">
               <img
                 className="rounded-2xl transition-transform duration-500 hover:scale-105 max-h-72 object-cover"
                 src="/images/offer.png"
                 alt="What do we offer?"
               />
             </div>
-            <div className="flex flex-col justify-center gap-4 p-8 bg-white lg:w-3/5 rounded-2xl shadow-sm">
-              <h2 className="font-bold text-2xl text-gray-800">What do we offer?</h2>
-              <p className="text-gray-600 leading-relaxed">
-                Here, we offer a wide range of personalized nutrition and wellness services designed
-                to help you achieve your health goals. This includes customized diet plans, weight
-                management programs, meal planning guidance, and nutritional counseling for specific
-                health conditions such as diabetes, heart health, or digestive issues.
+            <div className="flex flex-col justify-center gap-4 p-8 bg-[#EFFEFF] lg:w-3/5 rounded-2xl shadow-sm">
+              <h2 className="font-bold text-xl text-green-900">What do we offer?</h2>
+              <p className="text-yellow-600 text-sm leading-relaxed">
+                We offer a comprehensive range of personalized nutrition and wellness services designed to support your journey toward better health. Our services include customized diet plans, weight management programs, meal planning, nutrition counseling, and healthy lifestyle guidance tailored to your individual needs. We also provide specialized nutrition support for conditions such as diabetes, heart health, digestive disorders, PCOS, thyroid management, sports nutrition, and child, adult, and senior nutrition. Whether your goal is weight loss, weight gain, improved fitness, disease management, or simply adopting healthier eating habits, our evidence-based recommendations help you build sustainable, long-term wellness.
               </p>
             </div>
           </div>
 
           {/* Help Block */}
           <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-            <div className="bg-white rounded-2xl w-full lg:w-2/5 p-4 flex items-center justify-center">
+            <div className="bg-blue-100 rounded-2xl w-full lg:w-2/5 p-4 flex items-center justify-center">
               <img
                 className="rounded-2xl transition-transform duration-500 hover:scale-105 max-h-72 object-cover"
                 src="/images/Nutrifood.png"
                 alt="How Can We Help You?"
               />
             </div>
-            <div className="flex flex-col justify-center gap-4 p-8 bg-white lg:w-3/5 rounded-2xl shadow-sm">
-              <h2 className="font-bold text-2xl text-gray-800">How Can We Help You?</h2>
-              <p className="text-gray-600 leading-relaxed">
-                At Rebirth Center, we are committed to helping you lead a healthier and more balanced
-                life. Our expert nutritionists work closely with you to understand your unique needs,
-                lifestyle, and goals, whether it’s weight management, muscle gain, or managing health conditions.
+            <div className="flex flex-col justify-center gap-4 p-8 bg-[#EFFEFF] lg:w-3/5 rounded-2xl shadow-sm">
+              <h2 className="font-bold text-xl text-green-900">How Can We Help You?</h2>
+              <p className="text-yellow-600 text-sm leading-relaxed">
+                At Greenlife Nutrition, we are committed to helping you achieve lasting health through personalized nutrition and lifestyle guidance. Our experts take the time to understand your health goals, dietary preferences, medical history, and daily routine to create customized plans that fit your lifestyle. Whether your goal is weight loss, weight gain, muscle building, improved energy, better digestion, or managing conditions such as diabetes, PCOS, thyroid disorders, or heart health, we provide evidence-based recommendations, practical meal planning, ongoing support, and progress tracking to help you build healthy habits and achieve sustainable results with confidence.
               </p>
             </div>
           </div>
 
           {/* Vision Block */}
           <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-            <div className="bg-white rounded-2xl w-full lg:w-2/5 p-4 flex items-center justify-center">
+            <div className="bg-blue-100 rounded-2xl w-full lg:w-2/5 p-4 flex items-center justify-center">
               <img
                 className="rounded-2xl transition-transform duration-500 hover:scale-105 max-h-72 object-cover"
                 src="/images/vision.png"
                 alt="What is your story or vision?"
               />
             </div>
-            <div className="flex flex-col justify-center gap-4 p-8 bg-white lg:w-3/5 rounded-2xl shadow-sm">
-              <h2 className="font-bold text-2xl text-gray-800">What is your story or vision?</h2>
-              <p className="text-gray-600 leading-relaxed">
-                Our story began with a passion for promoting healthier lifestyles and empowering people
-                to take control of their well-being. We believe that nutrition is the foundation of a happy,
-                energetic, and balanced life.
+            <div className="flex flex-col justify-center gap-4 p-8 bg-[#EFFEFF] lg:w-3/5 rounded-2xl shadow-sm">
+              <h2 className="font-bold text-xl text-green-900">What is your story or vision?</h2>
+              <p className="text-yellow-600 text-sm leading-relaxed">
+                Greenlife Nutrition was founded with a vision to make healthy living simple, accessible, and sustainable for everyone. We believe that proper nutrition is the foundation of a healthier, happier, and more fulfilling life, and that every individual deserves guidance that is personalized to their unique needs and goals. Our mission is to empower people with science-based nutrition, practical lifestyle solutions, and continuous support that inspire lasting positive change rather than temporary results. We are committed to helping individuals and families develop healthier eating habits, improve their overall well-being, and prevent lifestyle-related health challenges through balanced nutrition and education. By combining professional expertise with a compassionate, client-focused approach, we aim to build a community where healthy choices become everyday habits, enabling people to live with greater energy, confidence, and long-term wellness.
               </p>
             </div>
           </div>
         </div>
+      </div>
+      <p className="font-bold text-3xl pt-4 lg:text-4x flex text-green-900 justify-center">What We Offer !</p>
+      <div className=" rounded-2xl pt-4 flex flex-col md:flex-row gap-10">
+        
+        {servicesList.map((service) => (
+          <div
+            key={service.id}
+            className="flex flex-col items-center sm:items-start gap-5 lg:gap-10 bg-blue-100 p-4 rounded-2xl shadow-sm hover:shadow-md transition duration-300"
+          >
+            <img
+              className="w-32 flex flex-col items-center h-32 sm:w-36 sm:h-36 border-4 border-blue-300 rounded-full object-cover shrink-0"
+              src={service.image}
+              alt={service.title}
+            />
+            <div className="bg-[#EFFEFF] p-5 rounded-2xl flex-grow shadow-sm w-full">
+              <h3 className="font-bold text-lg lg:text-xl text-green-800 mb-2">
+                {service.title}
+              </h3>
+              <p className="text-sm lg:text-base text-yellow-600 leading-relaxed">
+                {service.description}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

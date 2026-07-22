@@ -51,7 +51,7 @@ export default function RegisterPage({ onNavigate }) {
 
         {/* Heading */}
         <div className="flex flex-col justify-center items-center text-center">
-          <h1 className="font-bold text-2xl lg:text-4xl text-gray-800">
+          <h1 className="font-bold text-2xl lg:text-4xl text-green-900">
             Register your account
           </h1>
           <p className="lg:text-base text-sm text-gray-600 mt-2">

@@ -10,13 +10,13 @@ export default function Footer({ onNavigate }) {
 
   return (
     <footer>
-      <div className="px-6 py-8 lg:px-30 bg-blue-100 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-6 text-center md:text-left">
+      <div className="px-6 py-4 lg:px-30 text-green-950 bg-blue-200 flex  md:flex-row items-center md:items-start gap-8 md:gap-6 text-center md:text-left">
         {/* Navigation Links */}
-        <ul className="leading-loose border-t-4 md:border-t-0 md:border-l-4 border-blue-400 pt-4 md:pt-0 pl-0 md:pl-4 w-full md:w-1/3 flex flex-col items-center md:items-start">
+        <ul className="leading-loose border-l-4 border-blue-400 pt-0 pl-4 w-full md:w-1/3 flex flex-col items-start">
           <li>
             <button
               onClick={() => handleNavClick("about")}
-              className="hover:text-blue-700 transition cursor-pointer"
+              className="hover:text-blue-700 text-sm transition cursor-pointer"
             >
               About us
             </button>
@@ -24,7 +24,7 @@ export default function Footer({ onNavigate }) {
           <li>
             <button
               onClick={() => handleNavClick("dashboard")}
-              className="hover:text-blue-700 transition cursor-pointer"
+              className="hover:text-blue-700 text-sm transition cursor-pointer"
             >
               Nutritional Store
             </button>
@@ -32,7 +32,7 @@ export default function Footer({ onNavigate }) {
           <li>
             <button
               onClick={() => handleNavClick("dashboard")}
-              className="hover:text-blue-700 transition cursor-pointer"
+              className="hover:text-blue-700 text-sm transition cursor-pointer"
             >
               Fat Calculator
             </button>
@@ -40,7 +40,7 @@ export default function Footer({ onNavigate }) {
           <li>
             <button
               onClick={() => handleNavClick("contact")}
-              className="hover:text-blue-700 transition cursor-pointer"
+              className="hover:text-blue-700 text-sm transition cursor-pointer"
             >
               Contact Us
             </button>
@@ -48,7 +48,7 @@ export default function Footer({ onNavigate }) {
           <li>
             <button
               onClick={() => handleNavClick("services")}
-              className="hover:text-blue-700 transition cursor-pointer"
+              className="hover:text-blue-700 text-sm transition cursor-pointer"
             >
               Services
             </button>
@@ -60,15 +60,15 @@ export default function Footer({ onNavigate }) {
           <h1 className="font-bold text-3xl text-center">
             <button
               onClick={() => handleNavClick("home")}
-              className="hover:text-blue-700 transition cursor-pointer"
+              className="hover:text-blue-700 text-xl  transition cursor-pointer"
             >
               GreenLife Nutritions
             </button>
           </h1>
 
           <div className="flex flex-col items-center lg:items-end text-center lg:text-right">
-            <address className="not-italic">Pallapatti, Karur, TN - 639205</address>
-            <h1 className="font-semibold mt-1">9884455022</h1>
+            <address className="not-italic text-sm">Pallapatti, Karur, TN - 639205</address>
+            <h1 className="font-semibold text-sm mt-1">+91 9884455022</h1>
 
             {/* Social Icons */}
             <div className="flex items-center justify-center gap-3 pt-4 lg:pt-10">
@@ -112,9 +112,12 @@ export default function Footer({ onNavigate }) {
       </div>
 
       {/* Copyright Bar */}
-      <div className="bg-white p-4 flex justify-center text-center">
-        <p className="text-base sm:text-lg font-light text-gray-700">
-          © 2025 Greenlife Nutritions - All Rights Reserved
+      <div className="bg-blue-300 border-t border-green-900 p-2 flex flex-col justify-center text-center">
+        <p className="text-sm font-light text-gray-700">
+          © 2026 Greenlife Nutritions - All Rights Reserved
+        </p>
+        <p className="text-xs text-gray-500 font-light py-2 mx-18 lg:mx-60">
+          Disclaimer: Greenlife Nutrition provides personalized nutrition and wellness guidance to support healthy lifestyle choices. Results may vary based on individual health and adherence. Our recommendations are for informational purposes and are not a substitute for professional medical advice or treatment.
         </p>
       </div>
     </footer>
@@ -124,13 +127,13 @@ export default function Footer({ onNavigate }) {
 /* Social Icon Components */
 
 const YouTubeIcon = () => (
-  <svg className="h-10 w-10" fill="#000000" viewBox="0 -4 32 32">
+  <svg className="h-5 w-5" fill="#000000" viewBox="0 -4 32 32">
     <path d="M30.722,20.579 C30.137,21.894 28.628,23.085 27.211,23.348 C27.066,23.375 23.603,24.000 16.010,24.000 L15.990,24.000 C8.398,24.000 4.932,23.375 4.788,23.349 C3.371,23.085 1.861,21.894 1.275,20.578 C1.223,20.461 0.001,17.647 0.001,12.000 C0.001,6.353 1.223,3.538 1.275,3.421 C1.861,2.105 3.371,0.915 4.788,0.652 C4.932,0.625 8.398,-0.000 15.990,-0.000 C23.603,-0.000 27.066,0.625 27.210,0.651 C28.628,0.915 30.137,2.105 30.723,3.420 C30.775,3.538 32.000,6.353 32.000,12.000 C32.000,17.647 30.775,20.461 30.722,20.579 ZM28.893,4.230 C28.581,3.529 27.603,2.759 26.845,2.618 C26.813,2.612 23.386,2.000 16.010,2.000 C8.615,2.000 5.185,2.612 5.152,2.618 C4.394,2.759 3.417,3.529 3.104,4.234 C3.094,4.255 2.002,6.829 2.002,12.000 C2.002,17.170 3.094,19.744 3.106,19.770 C3.417,20.471 4.394,21.241 5.153,21.382 C5.185,21.388 8.615,22.000 15.990,22.000 L16.010,22.000 C23.386,22.000 26.813,21.388 26.846,21.382 C27.604,21.241 28.581,20.471 28.894,19.766 C28.904,19.744 29.998,17.170 29.998,12.000 C29.998,6.830 28.904,4.255 28.893,4.230 ZM13.541,17.846 C13.379,17.949 13.193,18.000 13.008,18.000 C12.842,18.000 12.676,17.959 12.525,17.875 C12.206,17.699 12.008,17.364 12.008,17.000 L12.008,7.000 C12.008,6.637 12.204,6.303 12.521,6.127 C12.838,5.950 13.227,5.958 13.534,6.149 L21.553,11.105 C21.846,11.286 22.026,11.606 22.027,11.951 C22.028,12.296 21.852,12.618 21.560,12.801 L13.541,17.846 ZM14.009,8.794 L14.009,15.189 L19.137,11.963 L14.009,8.794 Z" />
   </svg>
 );
 
 const InstagramIcon = () => (
-  <svg className="h-7 w-10" viewBox="0 0 20 20" fill="#000000">
+  <svg className="h-5 w-5" viewBox="0 0 20 20" fill="#000000">
     <path
       d="M289.869652,7279.12273 C288.241769,7279.19618 286.830805,7279.5942 285.691486,7280.72871 C284.548187,7281.86918 284.155147,7283.28558 284.081514,7284.89653 C284.035742,7285.90201 283.768077,7293.49818 284.544207,7295.49028 C285.067597,7296.83422 286.098457,7297.86749 287.454694,7298.39256 C288.087538,7298.63872 288.809936,7298.80547 289.869652,7298.85411 C298.730467,7299.25511 302.015089,7299.03674 303.400182,7295.49028 C303.645956,7294.859 303.815113,7294.1374 303.86188,7293.08031 C304.26686,7284.19677 303.796207,7282.27117 302.251908,7280.72871 C301.027016,7279.50685 299.5862,7278.67508 289.869652,7279.12273 M289.951245,7297.06748 C288.981083,7297.0238 288.454707,7296.86201 288.103459,7296.72603 C287.219865,7296.3826 286.556174,7295.72155 286.214876,7294.84312 C285.623823,7293.32944 285.819846,7286.14023 285.872583,7284.97693 C285.924325,7283.83745 286.155174,7282.79624 286.959165,7281.99226 C287.954203,7280.99968 289.239792,7280.51332 297.993144,7280.90837 C299.135448,7280.95998 300.179243,7281.19026 300.985224,7281.99226 C301.980262,7282.98483 302.473801,7284.28014 302.071806,7292.99991 C302.028024,7293.96767 301.865833,7294.49274 301.729513,7294.84312 C300.829003,7297.15085 298.757333,7297.47145 289.951245,7297.06748 M298.089663,7283.68956 C298.089663,7284.34665 298.623998,7284.88065 299.283709,7284.88065 C299.943419,7284.88065 300.47875,7284.34665 300.47875,7283.68956 C300.47875,7283.03248 299.943419,7282.49847 299.283709,7282.49847 C298.623998,7282.49847 298.089663,7283.03248 298.089663,7283.68956 M288.862673,7288.98792 C288.862673,7291.80286 291.150266,7294.08479 293.972194,7294.08479 C296.794123,7294.08479 299.081716,7291.80286 299.081716,7288.98792 C299.081716,7286.17298 296.794123,7283.89205 293.972194,7283.89205 C291.150266,7283.89205 288.862673,7286.17298 288.862673,7288.98792 M290.655732,7288.98792 C290.655732,7287.16159 292.140329,7285.67967 293.972194,7285.67967 C295.80406,7285.67967 297.288657,7287.16159 297.288657,7288.98792 C297.288657,7290.81525 295.80406,7292.29716 293.972194,7292.29716 C292.140329,7292.29716 290.655732,7290.81525 290.655732,7288.98792"
       transform="translate(-284, -7279)"
@@ -139,7 +142,7 @@ const InstagramIcon = () => (
 );
 
 const TwitterIcon = () => (
-  <svg className="h-10 w-10" viewBox="0 0 24 24" fill="none">
+  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -150,7 +153,7 @@ const TwitterIcon = () => (
 );
 
 const WebIcon = () => (
-  <svg className="h-10 w-10" viewBox="0 0 64 64" strokeWidth="3" stroke="#000000" fill="none">
+  <svg className="h-5 w-5" viewBox="0 0 64 64" strokeWidth="3" stroke="#000000" fill="none">
     <path d="M39.93,55.72A24.86,24.86,0,1,1,56.86,32.15a37.24,37.24,0,0,1-.73,6" />
     <path d="M37.86,51.1A47,47,0,0,1,32,56.7" />
     <path d="M32,7A34.14,34.14,0,0,1,43.57,30a34.07,34.07,0,0,1,.09,4.85" />

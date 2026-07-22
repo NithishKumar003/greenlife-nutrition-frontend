@@ -26,7 +26,7 @@ export default function Navbar({ isAuthenticated = false, onNavigate, onLogout }
   return (
     <>
       {/* Main Navbar Header */}
-      <section className="h-16">
+      <section className="mb-2 text-green-900 bg-[#EFFEFF]">
         <div className="fixed top-0 left-0 right-0 z-50 bg-blue-200/50 backdrop-blur-md shadow-md flex justify-between items-center p-4">
           <div>
             <button
