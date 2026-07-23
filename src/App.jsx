@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
@@ -15,10 +15,56 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
 import CompleteProfilePage from "./pages/CompleteProfilePage.jsx";
 import HealthReportCard from "./pages/HealthReportCard.jsx";
+import DownlineActivitiesPage from "./pages/DownlineActivitiesPage";
+
+// Utility & Policy Page Imports
+import PrivacyPolicyPage from "./pages/PrivacyPolicy.jsx";
+import NotFoundPage from "./pages/NotFound.jsx";
+
+// LIST OF VALID ROUTES SUPPORTED BY THE APP
+const VALID_ROUTES = [
+  "",
+  "home",
+  "about",
+  "services",
+  "contact",
+  "privacy",
+  "privacy-policy",
+  "dashboard",
+  "downline-activities",
+  "edit-profile",
+  "complete-profile",
+  "health-report",
+  "login",
+  "register",
+  "forgot-password",
+  "reset-password",
+];
+
+// HELPER: Extract route key from URL path
+const getInitialRoute = () => {
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
+  if (path === "") return "home";
+  return VALID_ROUTES.includes(path) ? path : "404";
+};
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("home");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Read current URL path on first load
+  const [currentPage, setCurrentPage] = useState(getInitialRoute);
+
+  // PERSIST AUTH STATE IN LOCALSTORAGE SO REFRESHING DOESN'T LOG OUT USER
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem("isAuthenticated") === "true";
+  });
+
+  // Synchronize state when user clicks Browser Back/Forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPage(getInitialRoute());
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   // Global User State
   const [currentUser, setCurrentUser] = useState({
@@ -32,10 +78,10 @@ export default function App() {
     height: 178,
     address: "123 Health Ave, Green City",
     profileImage: null,
-    role: "admin",
+    role: "admin", // 'admin' or 'superadmin'
   });
 
-  // FIX 1: DEFINE SHARE DATA STATE
+  // SHARE DATA STATE
   const [shareData] = useState({
     token: "greenlife-report-8921",
     age: 28,
@@ -51,7 +97,7 @@ export default function App() {
     },
   });
 
-  // FIX 2: DEFINE PDF DOWNLOAD HANDLER
+  // PDF DOWNLOAD HANDLER
   const handleDownloadPdf = (token) => {
     alert(`Downloading PDF report for token: ${token}`);
   };
@@ -63,34 +109,74 @@ export default function App() {
     }));
   };
 
+  // UPDATED NAVIGATION LOGIC WITH ROUTE PROTECTION & BROWSER URL SYNC
   const handleNavigate = (page) => {
-    setCurrentPage(page);
+    const protectedPages = [
+      "dashboard", 
+      "edit-profile", 
+      "complete-profile", 
+      "health-report",
+      "downline-activities",
+    ];
+
+    let targetPage = page;
+
+    // If attempting to access protected route without login, go to login
+    if (protectedPages.includes(page) && !isAuthenticated) {
+      targetPage = "login";
+    }
+
+    setCurrentPage(targetPage);
+
+    // Sync address bar URL without reloading the page
+    const targetUrl = targetPage === "home" ? "/" : `/${targetPage}`;
+    window.history.pushState({ page: targetPage }, "", targetUrl);
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setCurrentPage("home");
+  const handleLoginSuccess = () => {
+    localStorage.setItem("isAuthenticated", "true");
+    setIsAuthenticated(true);
+    handleNavigate("dashboard");
   };
 
-  // FIX 3: ADD 'health-report' TO PREVENT NAVBAR/FOOTER OVERLAP
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    setIsAuthenticated(false);
+    handleNavigate("home");
+  };
+
+  // CHECK DASHBOARD VIEW FOR NAVBAR/FOOTER VISIBILITY
+  // ONLY HIDE NAVBAR/FOOTER IF THE USER IS ACTIVELY AUTHENTICATED & ON DASHBOARD
   const isDashboardView =
-    currentPage === "dashboard" ||
-    currentPage === "edit-profile" ||
-    currentPage === "complete-profile" ||
-    currentPage === "health-report";
+    isAuthenticated &&
+    (currentPage === "dashboard" ||
+      currentPage === "edit-profile" ||
+      currentPage === "complete-profile" ||
+      currentPage === "health-report" ||
+      currentPage === "downline-activities");
 
   const renderPage = () => {
     switch (currentPage) {
       case "home":
-        return HomePage ? <HomePage onNavigate={handleNavigate} /> : <FallbackPage title="Home Page" />;
+        return HomePage ? <HomePage isAuthenticated={isAuthenticated} onNavigate={handleNavigate} /> : <FallbackPage title="Home Page" />;
+
       case "about":
-        return AboutPage ? <AboutPage /> : <FallbackPage title="About Us" />;
+        return AboutPage ? <AboutPage onNavigate={handleNavigate} /> : <FallbackPage title="About Us" />;
+
       case "services":
-        return ServicesPage ? <ServicesPage /> : <FallbackPage title="Services" />;
+        return ServicesPage ? <ServicesPage onNavigate={handleNavigate} /> : <FallbackPage title="Services" />;
+
       case "contact":
-        return ContactPage ? <ContactPage /> : <FallbackPage title="Contact Us" />;
+        return ContactPage ? <ContactPage onNavigate={handleNavigate} /> : <FallbackPage title="Contact Us" />;
+
+      case "privacy":
+      case "privacy-policy":
+        return PrivacyPolicyPage ? <PrivacyPolicyPage onNavigate={handleNavigate} /> : <FallbackPage title="Privacy Policy" />;
+
       case "dashboard":
+        if (!isAuthenticated) return <LoginPage onNavigate={handleNavigate} onLoginSuccess={handleLoginSuccess} />;
         return DashboardPage ? (
           <DashboardPage 
             currentUser={currentUser} 
@@ -100,7 +186,20 @@ export default function App() {
         ) : (
           <FallbackPage title="Dashboard / Nutritional Store" />
         );
+
+      case "downline-activities":
+        if (!isAuthenticated) return <LoginPage onNavigate={handleNavigate} onLoginSuccess={handleLoginSuccess} />;
+        return DownlineActivitiesPage ? (
+          <DownlineActivitiesPage 
+            user={currentUser} 
+            onBack={() => handleNavigate("dashboard")} 
+          />
+        ) : (
+          <FallbackPage title="Downline Activities Page" />
+        );
+
       case "edit-profile":
+        if (!isAuthenticated) return <LoginPage onNavigate={handleNavigate} onLoginSuccess={handleLoginSuccess} />;
         return EditProfilePage ? (
           <EditProfilePage 
             currentUser={currentUser} 
@@ -110,7 +209,9 @@ export default function App() {
         ) : (
           <FallbackPage title="Edit Profile" />
         );
+
       case "complete-profile":
+        if (!isAuthenticated) return <LoginPage onNavigate={handleNavigate} onLoginSuccess={handleLoginSuccess} />;
         return CompleteProfilePage ? (
           <CompleteProfilePage 
             currentUser={currentUser} 
@@ -120,7 +221,9 @@ export default function App() {
         ) : (
           <FallbackPage title="Complete Profile" />
         );
+
       case "health-report":
+        if (!isAuthenticated) return <LoginPage onNavigate={handleNavigate} onLoginSuccess={handleLoginSuccess} />;
         return HealthReportCard ? (
           <HealthReportCard 
             user={currentUser} 
@@ -131,23 +234,31 @@ export default function App() {
         ) : (
           <FallbackPage title="Health Report Details" />
         );
+
       case "login":
         return LoginPage ? (
           <LoginPage
             onNavigate={handleNavigate}
-            onLoginSuccess={() => setIsAuthenticated(true)}
+            onLoginSuccess={handleLoginSuccess}
           />
         ) : (
           <FallbackPage title="Login Page" />
         );
+
       case "register":
         return <RegisterPage onNavigate={handleNavigate} />;
+
       case "forgot-password":
         return <ForgotPasswordPage onNavigate={handleNavigate} />;
+
       case "reset-password":
         return <ResetPasswordPage onNavigate={handleNavigate} />;
+
+      case "404":
+        return NotFoundPage ? <NotFoundPage onNavigate={handleNavigate} /> : <FallbackPage title="404 Page Not Found" />;
+
       default:
-        return HomePage ? <HomePage onNavigate={handleNavigate} /> : <FallbackPage title="Home Page" />;
+        return NotFoundPage ? <NotFoundPage onNavigate={handleNavigate} /> : <FallbackPage title="404 Page Not Found" />;
     }
   };
 

@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from "react";
 
-export default function Home({ isAuthenticated = false }) {
+export default function Home({ isAuthenticated = false, onNavigate }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Updated navigation pages matching App.jsx routes
   const slides = [
     {
       title: "GreenLife Nutritions",
       subtitle: "Where Age Rewinds Naturally",
       bgImage: "/images/rb.jpg",
-      buttonText: "Register",
-      buttonLink: "/register",
-      showAuthOnly: true,
+      // Dynamic button state depending on auth status
+      buttonText: isAuthenticated ? "Go to Dashboard" : "Register",
+      targetPage: isAuthenticated ? "dashboard" : "register",
+      showAuthButton: true,
     },
     {
       title: "Weight Management",
       bgImage: "/images/wm.png",
-      buttonLink: "/weightmanagement",
+      targetPage: "services",
     },
     {
       title: "Free Counseling",
       bgImage: "/images/couns.png",
-      buttonLink: "/contact",
+      targetPage: "contact",
     },
     {
       title: "Fat Calculator",
       bgImage: "/images/fat.png",
-      buttonLink: "/dashboard",
+      targetPage: "dashboard",
     },
   ];
 
@@ -83,6 +85,13 @@ export default function Home({ isAuthenticated = false }) {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
+  // Safe navigation trigger
+  const handlePageClick = (page) => {
+    if (onNavigate) {
+      onNavigate(page);
+    }
+  };
+
   return (
     <section className="bg-[#EFFEFF] p-5 mt-14">
       {/* Interactive Carousel Slider */}
@@ -106,21 +115,24 @@ export default function Home({ isAuthenticated = false }) {
                 </h2>
               )}
 
-              {slide.showAuthOnly && !isAuthenticated ? (
-                <a
-                  href={slide.buttonLink}
-                  className="text-2xl mt-2 text-white bg-blue-500/80 hover:bg-blue-700 rounded-2xl px-6 py-2 transition"
+              {/* Renders Auth-aware action button or default arrow button */}
+              {slide.showAuthButton ? (
+                <button
+                  type="button"
+                  onClick={() => handlePageClick(slide.targetPage)}
+                  className="text-base lg:text-xl font-semibold mt-2 text-white bg-blue-600/90 hover:bg-blue-700 rounded-2xl px-6 py-2.5 transition cursor-pointer shadow-md"
                 >
                   {slide.buttonText}
-                </a>
+                </button>
               ) : (
-                slide.buttonLink && (
-                  <a
-                    href={slide.buttonLink}
-                    className="text-sm lg:text-lg font-bold p-3 text-white rounded-full bg-blue-800/60 hover:bg-blue-800 transition mt-2"
+                slide.targetPage && (
+                  <button
+                    type="button"
+                    onClick={() => handlePageClick(slide.targetPage)}
+                    className="text-sm lg:text-lg font-bold p-3 text-white rounded-full bg-blue-800/60 hover:bg-blue-800 transition mt-2 cursor-pointer"
                   >
                     &#10095;
-                  </a>
+                  </button>
                 )
               )}
             </div>
@@ -129,14 +141,16 @@ export default function Home({ isAuthenticated = false }) {
 
         {/* Carousel Controls */}
         <button
+          type="button"
           onClick={prevSlide}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/75 transition"
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/75 transition cursor-pointer"
         >
           &#10094;
         </button>
         <button
+          type="button"
           onClick={nextSlide}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/75 transition"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/75 transition cursor-pointer"
         >
           &#10095;
         </button>
@@ -151,55 +165,79 @@ export default function Home({ isAuthenticated = false }) {
           </h1>
 
           <div className="pt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
-            <div className="flex flex-col items-center gap-2">
+            {/* Nutri Store */}
+            <div 
+              onClick={() => handlePageClick("dashboard")}
+              className="flex flex-col items-center gap-2 cursor-pointer group"
+            >
               <img
-                className="w-14 h-14 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover group-hover:scale-105 transition"
                 src="/images/store.png"
                 alt="Nutri Store"
               />
-              <a className="font-medium hover:text-blue-600" href="/dashboard">
+              <span className="font-medium group-hover:text-blue-600">
                 Nutri Store
-              </a>
+              </span>
             </div>
-            <div className="flex flex-col items-center gap-2">
+
+            {/* Fat Calculator */}
+            <div 
+              onClick={() => handlePageClick("dashboard")}
+              className="flex flex-col items-center gap-2 cursor-pointer group"
+            >
               <img
-                className="w-14 h-14 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover group-hover:scale-105 transition"
                 src="/images/fat-cal.png"
                 alt="Fat Calculator"
               />
-              <a className="font-medium hover:text-blue-600" href="/dashboard">
+              <span className="font-medium group-hover:text-blue-600">
                 Fat Calculator
-              </a>
+              </span>
             </div>
-            <div className="flex flex-col items-center gap-2">
+
+            {/* Diet Plans */}
+            <div 
+              onClick={() => handlePageClick("services")}
+              className="flex flex-col items-center gap-2 cursor-pointer group"
+            >
               <img
-                className="w-14 h-14 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover group-hover:scale-105 transition"
                 src="/images/diet-planner.png"
                 alt="Diet Plans"
               />
-              <a className="font-medium hover:text-blue-600" href="/dietplans">
+              <span className="font-medium group-hover:text-blue-600">
                 Diet Plans
-              </a>
+              </span>
             </div>
-            <div className="flex flex-col items-center gap-2">
+
+            {/* Our Results */}
+            <div 
+              onClick={() => handlePageClick("about")}
+              className="flex flex-col items-center gap-2 cursor-pointer group"
+            >
               <img
-                className="w-14 h-14 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover group-hover:scale-105 transition"
                 src="/images/results.png"
                 alt="Our Results"
               />
-              <a className="font-medium hover:text-blue-600" href="/results">
+              <span className="font-medium group-hover:text-blue-600">
                 Our Results
-              </a>
+              </span>
             </div>
-            <div className="flex flex-col items-center gap-2">
+
+            {/* Our Teams */}
+            <div 
+              onClick={() => handlePageClick("about")}
+              className="flex flex-col items-center gap-2 cursor-pointer group"
+            >
               <img
-                className="w-14 h-14 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover group-hover:scale-105 transition"
                 src="/images/members.png"
                 alt="Our Teams"
               />
-              <a className="font-medium hover:text-blue-600" href="/members">
+              <span className="font-medium group-hover:text-blue-600">
                 Our Teams
-              </a>
+              </span>
             </div>
           </div>
         </div>
@@ -267,24 +305,27 @@ export default function Home({ isAuthenticated = false }) {
           </div>
         </div>
       </div>
-      <p className="font-bold text-3xl pt-4 lg:text-4x flex text-green-900 justify-center">What We Offer !</p>
-      <div className=" rounded-2xl pt-4 flex flex-col md:flex-row gap-10">
-        
+
+      <p className="font-bold text-3xl pt-8 pb-4 lg:text-4xl flex text-green-900 justify-center">What We Offer !</p>
+
+      {/* Services Grid */}
+      <div className="rounded-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {servicesList.map((service) => (
           <div
             key={service.id}
-            className="flex flex-col items-center sm:items-start gap-5 lg:gap-10 bg-blue-100 p-4 rounded-2xl shadow-sm hover:shadow-md transition duration-300"
+            onClick={() => handlePageClick("services")}
+            className="flex flex-col items-center gap-4 bg-blue-100 p-5 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition duration-300 cursor-pointer"
           >
             <img
-              className="w-32 flex flex-col items-center h-32 sm:w-36 sm:h-36 border-4 border-blue-300 rounded-full object-cover shrink-0"
+              className="w-28 h-28 border-4 border-blue-300 rounded-full object-cover shrink-0"
               src={service.image}
               alt={service.title}
             />
-            <div className="bg-[#EFFEFF] p-5 rounded-2xl flex-grow shadow-sm w-full">
+            <div className="bg-[#EFFEFF] p-5 rounded-2xl flex-grow shadow-sm w-full text-center sm:text-left">
               <h3 className="font-bold text-lg lg:text-xl text-green-800 mb-2">
                 {service.title}
               </h3>
-              <p className="text-sm lg:text-base text-yellow-600 leading-relaxed">
+              <p className="text-sm text-yellow-600 leading-relaxed">
                 {service.description}
               </p>
             </div>

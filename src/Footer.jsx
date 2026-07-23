@@ -47,10 +47,10 @@ export default function Footer({ onNavigate }) {
           </li>
           <li>
             <button
-              onClick={() => handleNavClick("services")}
+              onClick={() => handleNavClick("privacy")}
               className="hover:text-blue-700 text-sm transition cursor-pointer"
             >
-              Services
+              Privacy Policy
             </button>
           </li>
         </ul>
