@@ -1,10 +1,87 @@
 import React from "react";
-import { Leaf, Download, User, Calendar, ArrowLeft } from "lucide-react";
+import { Download, User, Calendar, ArrowLeft } from "lucide-react";
 
-export default function HealthReportCard({ user, share, onNavigate, onDownloadPdf }) {
+export default function HealthReportCard({ user, share, onNavigate }) {
   const report = share || {};
   const fatResults = report.fat_results || report.fatResults || {};
   const username = user?.username || user?.firstName || "Customer";
+
+  const handleDownload = () => {
+    // Build a standalone, print-formatted HTML page
+    const reportHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Health Report - ${username}</title>
+        <style>
+          body { font-family: Arial, sans-serif; background: #f0f9ff; padding: 20px; color: #1e293b; }
+          .card { max-width: 450px; margin: 0 auto; background: #ffffff; border-radius: 16px; border: 1px solid #bae6fd; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+          .header { background: #059669; color: white; text-align: center; padding: 20px; }
+          .header h2 { margin: 0; font-size: 22px; }
+          .header p { margin: 5px 0 0 0; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+          .sub-header { background: #f0f9ff; border-bottom: 1px solid #e0f2fe; padding: 12px; text-align: center; font-size: 14px; }
+          .metrics-grid { display: flex; gap: 8px; padding: 16px 16px 8px 16px; }
+          .metric-box { flex: 1; background: #f8fafc; border: 1px solid #f1f5f9; padding: 10px; border-radius: 12px; text-align: center; }
+          .metric-label { font-size: 10px; text-transform: uppercase; color: #64748b; font-weight: bold; }
+          .metric-value { font-size: 16px; font-weight: bold; margin-top: 4px; }
+          .results { background: #f0f9ff; border: 1px solid #e0f2fe; margin: 16px; padding: 12px; border-radius: 12px; }
+          .result-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #bae6fd; font-size: 14px; }
+          .result-row:last-child { border-bottom: none; }
+          .val { font-weight: bold; color: #1d4ed8; background: #fff; padding: 2px 8px; border-radius: 6px; }
+          .date { font-size: 10px; color: #94a3b8; text-align: right; padding: 0 16px 16px 16px; font-style: italic; }
+        </style>
+      </head>
+      <body>
+        <div class="card">
+          <div class="header">
+            <h2>GreenLife Health Report</h2>
+            <p>Body Composition Summary</p>
+          </div>
+          <div class="sub-header">
+            Health assessment for <strong>Mr. ${username}</strong>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <div class="metric-label">Age</div>
+              <div class="metric-value">${user?.age || report?.age || "-"}</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Height</div>
+              <div class="metric-value">${user?.height || report?.height || "-"} cm</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Weight</div>
+              <div class="metric-value">${user?.weight || report?.weight || "-"} kg</div>
+            </div>
+          </div>
+          <div class="results">
+            <div class="result-row"><span>BMI</span><span class="val">${fatResults.bmi || "-"}</span></div>
+            <div class="result-row"><span>BMR</span><span class="val">${fatResults.bmr || "-"}</span></div>
+            <div class="result-row"><span>Body Fat %</span><span class="val">${fatResults.body_fat || fatResults.bodyFat || "-"}</span></div>
+            <div class="result-row"><span>Visceral Fat</span><span class="val">${fatResults.visceral_fat || fatResults.visceralFat || "-"}</span></div>
+            <div class="result-row"><span>Body Age</span><span class="val">${fatResults.body_age || fatResults.bodyAge || "-"}</span></div>
+          </div>
+          <div class="date">Generated on ${report.created_at || report.createdAt || "Today"}</div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // 1. Convert HTML content to Blob file
+    const blob = new Blob([reportHtml], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+
+    // 2. Trigger direct browser download
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${username}_Health_Report.html`;
+    document.body.appendChild(link);
+    link.click();
+
+    // 3. Clean up link node and object URL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <section className="min-h-screen bg-blue-100 flex flex-col items-center justify-center p-4 font-sans relative">
@@ -17,7 +94,7 @@ export default function HealthReportCard({ user, share, onNavigate, onDownloadPd
             if (onNavigate) {
               onNavigate("dashboard");
             } else {
-              window.history.back(); // Fallback if prop is omitted
+              window.history.back();
             }
           }}
           className="flex items-center gap-2 text-sm font-semibold text-blue-700 bg-white px-4 py-2.5 rounded-xl shadow-sm hover:bg-blue-50 transition active:scale-95 cursor-pointer border border-blue-200"
@@ -28,11 +105,9 @@ export default function HealthReportCard({ user, share, onNavigate, onDownloadPd
 
       {/* REPORT CARD DISPLAY */}
       <div className="w-full max-w-md bg-white border border-blue-200 rounded-3xl shadow-xl overflow-hidden">
+        
         {/* BRANDING HEADER */}
-        <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white text-center flex flex-col items-center gap-2">
-          {/* <div className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30 shadow-inner">
-            <Leaf className="w-8 h-8 text-white fill-white" />
-          </div> */}
+        <div className="bg-emerald-600 p-6 text-white text-center flex flex-col items-center gap-2">
           <h2 className="font-bold text-2xl tracking-wide">GreenLife Health Report</h2>
           <p className="text-xs text-green-100 font-medium uppercase tracking-wider">
             Body Composition Summary
@@ -74,10 +149,10 @@ export default function HealthReportCard({ user, share, onNavigate, onDownloadPd
         <div className="bg-gray-50 border-t border-gray-100 p-5 flex justify-center">
           <button
             type="button"
-            onClick={() => onDownloadPdf && onDownloadPdf(report.token)}
+            onClick={handleDownload}
             className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-xl shadow-md transition cursor-pointer active:scale-95"
           >
-            <Download className="w-4 h-4" /> Download PDF Report
+            <Download className="w-4 h-4" /> Download Report
           </button>
         </div>
       </div>
